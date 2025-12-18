@@ -7,20 +7,6 @@ struct Student
     int age;
 };
 
-/**
- * @brief Making this method static makes it visible only to student.c
- *
- * @param s String to copy
- * @return char*
- */
-static char *dup_string(const char *s)
-{
-    char *copy = malloc(strlen(s) + 1);
-    if (copy)
-        strcpy(copy, s);
-    return copy;
-}
-
 Student *student_create(const char *name, const char *lastname, int age)
 {
     Student *s = malloc(sizeof(Student));

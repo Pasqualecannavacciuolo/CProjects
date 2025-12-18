@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stddef.h>
+#include "utils.h"
 
 /*
  * Ownership rules:

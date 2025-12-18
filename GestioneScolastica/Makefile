@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -pedantic -g
 INCLUDES = -Iinclude
 
-SRC = src/main.c src/student.c
+SRC = src/main.c src/student.c src/utils.c src/course.c
 OBJDIR = build
 OBJ = $(SRC:src/%.c=$(OBJDIR)/%.o)
 
@@ -15,11 +15,9 @@ all: $(TARGET)
 $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
 
-# Regola di compilazione degli object
-$(OBJDIR)/%.o: src/%.c include/student.h | $(OBJDIR)
+$(OBJDIR)/%.o: src/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-# Crea la directory build se non esiste
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
 

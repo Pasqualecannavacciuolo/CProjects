@@ -1,0 +1,14 @@
+# IDE e editor
+.vscode/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Build
+build/
+**/build/
+
+# Eseguibili generati
+*.out
+program

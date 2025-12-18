@@ -12,3 +12,5 @@ build/
 # Eseguibili generati
 *.out
 program
+
+/Squiel

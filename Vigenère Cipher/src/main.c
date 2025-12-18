@@ -11,28 +11,18 @@ int main(int argc, char *argv[])
     // int integer_value = (c - 'A') % 26; // Ogni lettera dell'alfabeto viene mappata ad un numero da 0 a 25
     // printf("%d\n", integer_value);
 
-    if (argc < 3 || argc > 3)
+    if (argc != 3)
     {
         fprintf(stderr, "Uso: %s <plain_text> <worm_phrase>\n", argv[0]);
         return 1;
     }
 
     char *plain = argv[1];
-    if (!plain)
-    {
-        perror("Error allocating PLAIN");
-        return 1;
-    }
-
     char *worm = argv[2];
-    if (!worm)
-    {
-        perror("Error allocating WORM");
-        return 1;
-    }
 
     size_t i = 0;
     size_t size = strlen(plain);
+    size_t worm_len = strlen(worm);
 
     char *encrypted = malloc(strlen(plain) + 1);
     if (!encrypted)
@@ -41,18 +31,22 @@ int main(int argc, char *argv[])
         return 1;
     }
     // ASCII => A=65 : Z=90
+
     while (i < size)
     {
-        // Controllo caratteri non alfabetici
-        if (plain[i] < 'A' || plain[i] > 'Z')
+        char plain_char = plain[i];
+
+        // Converti minuscole in maiuscole, ignora altri caratteri
+        if (plain_char >= 'a' && plain_char <= 'z')
+            plain_char -= 'a' - 'A';
+        if (plain_char < 'A' || plain_char > 'Z')
         {
-            encrypted[i] = plain[i];
-            i++;
+            encrypted[i] = plain_char;
             continue;
         }
 
         int plain_integer_value = (plain[i] - 'A');
-        int shift = (worm[i % strlen(worm)] - 'A');
+        int shift = (worm[i % worm_len] - 'A');
 
         int encrypted_value = (plain_integer_value + shift) % 26;
         char encrypted_char = encrypted_value + 'A';

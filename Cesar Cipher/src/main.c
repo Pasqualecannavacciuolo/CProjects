@@ -16,14 +16,16 @@ int main(int argc, char *argv[])
     int shift = atoi(argv[1]);
     char *plain = argv[2];
 
-    char *encrypted = malloc(strlen(plain));
+    char *encrypted = malloc(strlen(plain) + 1);
 
     int size = strlen(plain);
     int i = 0;
 
     while (i < size)
     {
-        encrypted[i] = plain[i] + shift;
+        int value = plain[i] - 'A'; // A → 0
+        int encrypted_value = (value + shift) % 26;
+        encrypted[i] = encrypted_value + 'A';
         i++;
     }
     encrypted[size] = '\0';

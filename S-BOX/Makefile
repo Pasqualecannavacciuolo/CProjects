@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -pedantic -g
 INCLUDES = -Iinclude
 
-SRC = src/main.c 
+SRC = src/main.c src/core.c src/utils.c src/shared.c 
 OBJDIR = build
 OBJ = $(SRC:src/%.c=$(OBJDIR)/%.o)
 

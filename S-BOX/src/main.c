@@ -4,6 +4,7 @@
 
 int main(void)
 {
+    init_s_box();     // 🔑 OBBLIGATORIO
     init_inv_s_box(); // 🔑 OBBLIGATORIO
 
     uint8_t *encrypted_hex_array = encrypt();

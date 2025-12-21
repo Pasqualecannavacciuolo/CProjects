@@ -1,21 +1,19 @@
 #include "shared.h"
 
-// definizione reale (UNA SOLA VOLTA)
-uint8_t s_box[16] = {
-    0xE, 0x4, 0xD, 0x1,
-    0x2, 0xF, 0xB, 0x8,
-    0x3, 0xA, 0x6, 0xC,
-    0x5, 0x9, 0x0, 0x7};
-
-uint8_t inv_s_box[16];
-
+// S-box 8-bit pseudo casuale
+uint8_t s_box[256];
+uint8_t inv_s_box[256];
 char plain[] = "parola";
 size_t plain_size;
 
+void init_s_box(void) // inizializza S-box con permutazione semplice
+{
+    for (int i = 0; i < 256; i++)
+        s_box[i] = (i + 101) % 256; // esempio semplice
+}
+
 void init_inv_s_box(void)
 {
-    for (uint8_t i = 0; i < 16; i++)
-    {
+    for (int i = 0; i < 256; i++)
         inv_s_box[s_box[i]] = i;
-    }
 }

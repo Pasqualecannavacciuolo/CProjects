@@ -2,6 +2,9 @@
 #define ARRAY_H
 
 #include <stddef.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <errno.h>
 
 /**
  * struct array - Dynamic array of integers

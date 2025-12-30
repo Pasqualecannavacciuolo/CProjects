@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -pedantic -g
 INCLUDES = -Iinclude
 
-SRC = src/main.c src/array.c src/shared.c 
+SRC = src/main.c src/shared.c src/array.c src/array_algo.c 
 OBJDIR = build
 OBJ = $(SRC:src/%.c=$(OBJDIR)/%.o)
 

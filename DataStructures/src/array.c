@@ -1,7 +1,4 @@
 #include "array.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <errno.h>
 
 int array_init(Array *array, size_t capacity)
 {

@@ -19,16 +19,17 @@ int main(void)
     Array array;
     int ret, value;
     size_t search_index;
-    int values[] = {
-        42, 87, 13, 99, 5, 64, 21, 78, 56, 9,
-        91, 34, 7, 68, 50, 26, 83, 15, 97, 39,
-        2, 71, 58, 44, 19, 90, 31, 66, 11, 84,
-        53, 24, 76, 1, 60, 35, 92, 48, 17, 70,
-        28, 81, 6, 55, 95, 37, 63, 10, 88, 22,
-        74, 4, 59, 32, 86, 14, 69, 41, 98, 27,
-        65, 20, 80, 46, 12, 93, 29, 57, 73, 18,
-        85, 33, 61, 8, 94, 49, 16, 75, 40, 89,
-        25, 67, 3, 82, 51, 96, 36, 72, 54, 30};
+    // int values[] = {
+    //     42, 87, 13, 99, 5, 64, 21, 78, 56, 9,
+    //     91, 34, 7, 68, 50, 26, 83, 15, 97, 39,
+    //     2, 71, 58, 44, 19, 90, 31, 66, 11, 84,
+    //     53, 24, 76, 1, 60, 35, 92, 48, 17, 70,
+    //     28, 81, 6, 55, 95, 37, 63, 10, 88, 22,
+    //     74, 4, 59, 32, 86, 14, 69, 41, 98, 27,
+    //     65, 20, 80, 46, 12, 93, 29, 57, 73, 18,
+    //     85, 33, 61, 8, 94, 49, 16, 75, 40, 89,
+    //     25, 67, 3, 82, 51, 96, 36, 72, 54, 30};
+    int values[] = {42, 87, 13, 99, 5, 64, 21, 78, 56, 9};
 
     ret = array_init(&array, 10);
     if (ret)
@@ -42,8 +43,36 @@ int main(void)
     }
 
     array_print(&array);
+    printf("Array capacity: %zu\n", array_capacity(&array));
+    printf("Array size: %zu\n", array_size(&array));
 
-    int index = 2;
+    ret = array_insert(&array, 88, 6);
+    if (ret == 0)
+    {
+        array_print(&array);
+        printf("Array capacity: %zu\n", array_capacity(&array));
+        printf("Array size: %zu\n", array_size(&array));
+    }
+    else
+    {
+
+        goto out;
+    }
+
+    ret = array_remove(&array, 6);
+    if (ret == 0)
+    {
+        array_print(&array);
+        printf("Array capacity: %zu\n", array_capacity(&array));
+        printf("Array size: %zu\n", array_size(&array));
+    }
+    else
+    {
+
+        goto out;
+    }
+
+    /*int index = 2;
     ret = array_get(&array, index, &value);
     if (ret == 0)
         printf("Value = %d at index[%d]\n", value, index);
@@ -81,7 +110,7 @@ int main(void)
         array_print(&array);
     }
     else
-        goto out;
+        goto out;*/
 
 out:
     array_free(&array);

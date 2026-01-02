@@ -76,6 +76,86 @@ int array_set(Array *array, size_t index, int value)
     return 0;
 }
 
+int array_insert(Array *array, int value, size_t index)
+{
+    if (!array)
+    {
+        return -EINVAL;
+    }
+
+    if (index > array->size)
+    {
+        return -ERANGE;
+    }
+
+    if (array->size == array->capacity)
+    {
+        size_t new_capacity = array->capacity ? array->capacity * 2 : 1;
+        int *new_data = realloc(array->data, new_capacity * sizeof(int));
+        if (!new_data)
+        {
+            return -ENOMEM;
+        }
+
+        array->data = new_data;
+        array->capacity = new_capacity;
+    }
+
+    if (index < array->size)
+    {
+        memmove(&array->data[index + 1], &array->data[index], (array->size - index) * sizeof(int));
+    }
+
+    array->data[index] = value;
+    array->size++;
+
+    return 0;
+}
+
+int array_remove(Array *array, size_t index)
+{
+    if (!array)
+    {
+        return -EINVAL;
+    }
+
+    if (index >= array->size)
+    {
+        return -ERANGE;
+    }
+
+    if (index < array->size - 1)
+    {
+        memmove(&array->data[index],
+                &array->data[index + 1],
+                (array->size - index - 1) * sizeof(int));
+    }
+
+    array->size--;
+
+    return 0;
+}
+
+size_t array_size(Array *array)
+{
+    if (!array)
+    {
+        return -EINVAL;
+    }
+
+    return array->size;
+}
+
+size_t array_capacity(Array *array)
+{
+    if (!array)
+    {
+        return -EINVAL;
+    }
+
+    return array->capacity;
+}
+
 void array_print(Array *array)
 {
     if (!array)

@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <errno.h>
 
 /**
@@ -99,6 +100,55 @@ int array_set(Array *array, size_t index, int value);
  *         -ENOMEM if memory reallocation fails.
  */
 int array_append(Array *array, int value);
+
+/**
+ * array_insert - Insert an element at a specified index in the array
+ * @array: Pointer to the Array structure
+ * @value: Integer value to insert
+ * @index: Position at which to insert the new element (0-based)
+ *
+ * Inserts a new element at the specified index in the array.
+ * All elements at and after @index are shifted one position to the right.
+ * If the internal buffer is full, the function grows the capacity
+ * by reallocating a larger buffer.
+ *
+ * Preconditions:
+ * - @index must be less than or equal to array_size(array).
+ *
+ * The caller is responsible for ensuring that @array is a valid
+ * pointer previously initialized with array_init().
+ *
+ * Return: 0 on success,
+ *         -EINVAL if the array pointer is NULL or index is out of bounds,
+ *         -ENOMEM if memory reallocation fails.
+ *         -ERANGE if index is out of bound.
+ */
+int array_insert(Array *array, int value, size_t index);
+
+/**
+ * array_remove - Remove an element at a specified index in the array
+ * @array: Pointer to the Array structure
+ * @index: Position of the element to remove (0-based)
+ *
+ * Removes the element at the specified index from the array.
+ * All elements after @index are shifted one position to the left
+ * to fill the gap. The array size is decremented by one.
+ *
+ * Preconditions:
+ * - @index must be less than array_size(array).
+ *
+ * The caller is responsible for ensuring that @array is a valid
+ * pointer previously initialized with array_init().
+ *
+ * Return: 0 on success,
+ *         -EINVAL if the array pointer is NULL,
+ *         -ERANGE if the index is out of bounds.
+ *
+ * Note:
+ * - This function does not shrink the allocated capacity.
+ * - To remove elements without preserving order, see array_remove_unordered().
+ */
+int array_remove(Array *array, size_t index);
 
 /**
  * array_size - Get the number of stored elements
